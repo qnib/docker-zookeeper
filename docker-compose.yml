@@ -1,0 +1,49 @@
+consul:
+    hostname: consul
+    image: qnib/consul
+    environment:
+    - DC_NAME=dc1
+    ports:
+    - "8500:8500"
+    dns: 127.0.0.1
+
+zookeeper0:
+    hostname: zookeeper0
+    dns: 127.0.0.1
+    image: qnib/zookeeper
+    # build: .
+    environment:
+    - DC_NAME=dc1
+    - MYID=1
+    #- SERVERS=zookeeper0.node.dc1.consul,zookeeper1.node.dc1.consul
+    links:
+    - consul:consul
+    ports:
+    - 2181:2181
+    privileged: true
+
+#zookeeper1:
+#    hostname: zookeeper1
+#    dns: 127.0.0.1
+#    image: qnib/zookeeper
+#    # build: .
+#    environment:
+#    - DC_NAME=dc1
+#    - MYID=2
+#    - SERVERS=zookeeper0.node.dc1.consul,zookeeper1.node.dc1.consul
+#    links:
+#    - consul:consul
+#    privileged: true
+
+#zookeeper2:
+#    hostname: zookeeper2
+#    dns: 127.0.0.1
+#    image: qnib/zookeeper
+#    # build: .
+#    environment:
+#    - DC_NAME=dc1
+#    - MYID=3
+#    - SERVERS=zookeeper0.node.dc1.consul,zookeeper1.node.dc1.consul,zookeeper2.node.dc1.consul
+#    links:
+#    - consul:consul
+#    privileged: true
