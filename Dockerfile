@@ -1,5 +1,5 @@
 ###### grafana images
-FROM qnib/terminal:light
+FROM qnib/terminal
 
 VOLUME ["/tmp/zookeeper"]
 RUN yum install -y java-1.7.0-openjdk-headless
