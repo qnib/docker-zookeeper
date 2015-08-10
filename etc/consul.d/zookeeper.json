@@ -6,7 +6,7 @@
         "tags": [],
         "port": 2181,
         "checks": [{
-            "script": "echo stat | nc 127.0.0.1 2181 || echo 'Endpoint http://localhost:2181 not available'",
+            "script": "/opt/qnib/zookeeper/bin/check_zookeeper.sh",
             "interval": "10s"
         }]
     }
