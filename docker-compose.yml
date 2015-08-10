@@ -23,11 +23,13 @@ zookeeper0:
     hostname: zookeeper0
     dns: 127.0.0.1
     image: qnib/zookeeper
+    #volumes:
+    #- opt/qnib/zookeeper/bin/:/opt/qnib/zookeeper/bin/
     environment:
     - DC_NAME=dc1
     - MYID=1
+    #- START_ZOOKEEPER=false
     - SERVERS=zookeeper0.node.dc1.consul,zookeeper1.node.dc1.consul,zookeeper2.node.dc1.consul
-    #- SERVERS=zookeeper0.node.dc1.consul,zookeeper1.node.dc1.consul
     links:
     - consul:consul
     ports:
@@ -42,7 +44,6 @@ zookeeper1:
     - DC_NAME=dc1
     - MYID=2
     - SERVERS=zookeeper0.node.dc1.consul,zookeeper1.node.dc1.consul,zookeeper2.node.dc1.consul
-    #- SERVERS=zookeeper0.node.dc1.consul,zookeeper1.node.dc1.consul
     links:
     - consul:consul
     privileged: true
