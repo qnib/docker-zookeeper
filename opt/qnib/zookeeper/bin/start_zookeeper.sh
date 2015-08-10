@@ -4,6 +4,10 @@
 # https://raw.githubusercontent.com/mesoscloud/zookeeper/master/3.4.6/centos/7/entrypoint.sh
 
 echo ${MYID:-1} > /tmp/zookeeper/myid
+if [ "${MYID}" -gt 0 ];then
+   echo "Sleep according to MYID $(echo "${MYID}*2"|bc)"
+   sleep $(echo "${MYID}*2"|bc)
+fi
 
 # based on https://github.com/apache/zookeeper/blob/trunk/conf/zoo_sample.cfg
 cat > /opt/zookeeper/conf/zoo.cfg <<EOF
