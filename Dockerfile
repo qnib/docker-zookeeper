@@ -12,3 +12,4 @@ ADD opt/zookeeper/conf/zoo.cfg /opt/zookeeper/conf/
 ADD etc/consul-templates/zoo.cfg.ctmpl /etc/consul-templates/
 ENV PATH=/opt/zookeeper/bin:${PATH}
 RUN echo "tail -f /var/log/supervisor/zookeeper*" >> /root/.bash_history
+ADD opt/qnib/zookeeper/bin/start_zookeeper-update.sh /opt/qnib/zookeeper/bin/
