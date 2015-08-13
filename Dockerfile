@@ -9,6 +9,6 @@ ADD etc/supervisord.d/*.ini /etc/supervisord.d/
 ADD opt/qnib/zookeeper/bin/*.sh /opt/qnib/zookeeper/bin/
 ADD etc/consul.d/zookeeper.json /etc/consul.d/
 ADD opt/zookeeper/conf/zoo.cfg /opt/zookeeper/conf/
-#ADD etc/consul-templates/zoo.cfg.ctmpl /etc/consul-templates/
+ADD etc/consul-templates/zoo.cfg.ctmpl /etc/consul-templates/
 ENV PATH=/opt/zookeeper/bin:${PATH}
 RUN echo "tail -f /var/log/supervisor/zookeeper*" >> /root/.bash_history
