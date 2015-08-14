@@ -1,5 +1,8 @@
 #!/bin/bash
 
+export MYID=${MYID-"-1"}
+consul-template -consul localhost:8500 -once -template "/etc/consul-templates/zoo.myid.ctmpl:/tmp/zookeeper/myid"
+
 if [ "X${ZK_DC}" != "X" ];then
     sed -i'' -e "s#service \"zookeeper.*\"#service \"zookeeper@${ZK_DC}\"#" /etc/consul-templates/zoo.cfg.ctmpl
 fi

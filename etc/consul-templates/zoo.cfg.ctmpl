@@ -4,5 +4,5 @@ syncLimit=5
 dataDir=/tmp/zookeeper
 clientPort=2181
 {{range $i, $e := service "zookeeper@dc1" "any"}} 
-server.{{env "MYID"}}={{$e.Address}}:2888:3888
+server.{{$e.Tags | join ","}}={{$e.Address}}:2888:3888
 {{end}}
