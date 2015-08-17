@@ -11,4 +11,5 @@ ADD etc/consul.d/zookeeper.json /etc/consul.d/
 ADD opt/zookeeper/conf/zoo.cfg /opt/zookeeper/conf/
 ADD etc/consul-templates/*.ctmpl /etc/consul-templates/
 ENV PATH=/opt/zookeeper/bin:${PATH}
-RUN echo "tail -f /var/log/supervisor/zookeeper*" >> /root/.bash_history
+RUN echo "tail -f /var/log/supervisor/zookeeper.log" >> /root/.bash_history && \
+    echo "cat /opt/zookeeper/conf/zoo.cfg" >> /root/.bash_history
