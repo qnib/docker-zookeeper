@@ -1,6 +1,10 @@
 #!/bin/bash
 
 export MYID=${MYID-"-1"}
+if [ "${MYID}" == "-1" ];then
+    supervisorctl start zookeeper
+    exit 0
+fi
 consul-template -consul localhost:8500 -once -template "/etc/consul-templates/zoo.myid.ctmpl:/tmp/zookeeper/myid"
 
 if [ "X${ZK_DC}" != "X" ];then
@@ -16,3 +20,4 @@ if [ "X${ZK_MIN}" != "X" ];then
 fi 
 
 consul-template -consul localhost:8500 -wait=15s -template "/etc/consul-templates/zoo.cfg.ctmpl:/opt/zookeeper/conf/zoo.cfg:supervisorctl restart zookeeper"
+exit 0
