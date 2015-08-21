@@ -10,6 +10,13 @@ function set_zk_mode {
         echo "Change tag to ${mode}; reload consul"
         consul reload
     fi
+    if [ "X${ZK_DC}" != "X" ];then
+        # update service tag of ZK_DC
+        curl -s -XGET "172.17.42.1:8500/v1/catalog/service/zookeeper?dc=dc1&tag=${MYID}"|sed -e 's/Service//g'|jq -c '.[0]' > /tmp/zk.json
+        sed -i'' -E "s/\"Tags\":\[[a-z0-9\",]+\]/\"Tags\":\[\"${MYID}\",\"${mode}\"\]/" /tmp/zk.json
+        curl -s -XPOST 172.17.42.1:8500/v1/agent/service/register?dc=${ZK_DC} -d @/tmp/zk.json
+        rm -f /tmp/zk.json
+    fi
 }
 
 ## In case the zookeeper instance should not be started
