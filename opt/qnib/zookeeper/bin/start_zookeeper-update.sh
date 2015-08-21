@@ -8,7 +8,7 @@ fi
 consul-template -consul localhost:8500 -once -template "/etc/consul-templates/zoo.myid.ctmpl:/tmp/zookeeper/myid"
 
 if [ "X${ZK_DC}" != "X" ];then
-    sed -i'' -e "s#service \"zookeeper.*\"#service \"zookeeper@${ZK_DC}\"#" /etc/consul-templates/zoo.cfg.ctmpl
+    sed -i'' -E "s#service \"zookeeper(@\w+)?\"#service \"zookeeper@${ZK_DC}\"#" /etc/consul-templates/zoo.cfg.ctmpl
 fi
 
 if [ "X${ZK_MIN}" != "X" ];then
