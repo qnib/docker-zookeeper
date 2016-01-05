@@ -2,7 +2,7 @@
 FROM qnib/java7:dev
 
 VOLUME ["/tmp/zookeeper"]
-ENV ZK_VER 3.4.6
+ENV ZK_VER 3.4.7
 RUN curl -fsL http://apache.mirror.digitalpacific.com.au/zookeeper/zookeeper-${ZK_VER}/zookeeper-${ZK_VER}.tar.gz | tar xzf - -C /opt && mv /opt/zookeeper-${ZK_VER} /opt/zookeeper
 RUN yum install -y bc jq
 ADD etc/supervisord.d/*.ini /etc/supervisord.d/
