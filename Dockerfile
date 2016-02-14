@@ -1,5 +1,5 @@
 ###### grafana images
-FROM qnib/java7
+FROM qnib/java8
 
 VOLUME ["/tmp/zookeeper"]
 ENV ZK_VER 3.4.6
