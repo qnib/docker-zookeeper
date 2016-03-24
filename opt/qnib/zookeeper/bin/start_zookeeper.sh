@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/local/bin/dumb-init /bin/sh
 
 
 function stop_zk {

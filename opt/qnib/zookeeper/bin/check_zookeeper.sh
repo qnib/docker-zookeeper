@@ -6,7 +6,8 @@ function set_zk_mode {
         mode=leader
    fi
     if ! egrep "tags.*${mode}" /etc/consul.d/zookeeper.json;then
-        sed -i'' -e "s/tags\": .*/tags\": [\"${mode}\"],/" /etc/consul.d/zookeeper.json
+        jq -c ".services[0].tags" /etc/consul.d/zookeeper.json |sed -E 's/(follower|leader)/test/' > /tmp/zookeeper.json
+        mv /tmp/zookeeper.json /etc/consul.d/zookeeper.json
         echo "Change tag to ${mode}; reload consul"
         consul reload
     fi
@@ -18,6 +19,12 @@ function set_zk_mode {
         rm -f /tmp/zk.json
     fi
 }
+
+# ADD cluster name
+jq ".services[0].tags |= (.+ [\"${ZK_CLUSTER_NAME}\"] | unique)" /etc/consul.d/zookeeper.json  > /tmp/zk.json
+mv /tmp/zookeeper.json /etc/consul.d/zookeeper.json
+consul reload
+
 
 ## In case the zookeeper instance should not be started
 # eg. in case kafka inherits from this image, but uses an external zookeeper

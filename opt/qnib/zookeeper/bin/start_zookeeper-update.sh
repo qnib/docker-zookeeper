@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/local/bin/dumb-init /bin/bash
 
 export MYID=${MYID-"-1"}
 if [ "${MYID}" == "-1" ];then
